@@ -27,19 +27,38 @@ class MainActivity : AppCompatActivity() {
             R.layout.activity_main
         )
 
-        binding.main = this
+        bindingObj()
         setObservers()
     }
 
     fun setObservers(){
         viewModel.gameWon.observe(this, Observer {
             if(it){
-                phase = "PLAYER ${player_turn} HAS WON THE GAME"
+                phase = "PLAYER ${viewModel.player} HAS WON THE GAME"
+                binding.btnLeftTop.isClickable = false
+
+                binding.btnCenterTop.isClickable = false
+
+                binding.btnRightTop.isClickable = false
+
+                binding.btnLeftCenter.isClickable = false
+
+                binding.btnCenterCenter.isClickable = false
+
+                binding.btnRightCenter.isClickable = false
+
+                binding.btnRightBottom.isClickable = false
+
+                binding.btnCenterBottom.isClickable = false
+
+                binding.btnLeftBottom.isClickable = false
+
+
             }
         })
 
         viewModel.buttonCoordinate.observe(this, Observer {
-            Log.i(TAG, viewModel.matrizViewModel.toString())
+            Log.i(TAG, "\nTurn:${viewModel.player}\n"+viewModel.matrizViewModel.toString())
             when(viewModel.buttonCoordinate.value){
                 1 -> {
                     binding.btnLeftTop.text = viewModel.player

@@ -20,10 +20,11 @@ class MainActivityViewModel: ViewModel() {
     }
 
     fun onButtonClick(buttonCoordinate: Int){
-        buttonCoordinate_.value = buttonCoordinate
         matrizViewModel.changeNumber(buttonCoordinate, player)
-        if(matrizViewModel.checkWinCondition()) {
+        buttonCoordinate_.value = buttonCoordinate
 
+        if(matrizViewModel.checkWinCondition()) {
+            gameWon.value = true
         }else{
             changeTurn()
         }

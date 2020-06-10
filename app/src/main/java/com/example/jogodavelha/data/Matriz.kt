@@ -9,18 +9,13 @@ class Matriz{
     private var row: Int = 0
     private var i: Int = 0
 
-    fun changeNumber(buttonCoordinate: Int, turn:String){
+    fun changeNumber(buttonCoordinate: Int, PlayerTurn:String){
         i = whichRow(buttonCoordinate)
         when(row){
-            1 -> array1[i] = turn
-            2 -> array2[i] = turn
-            3 -> array3[i] = turn
+            1 -> array1[i] = PlayerTurn
+            2 -> array2[i] = PlayerTurn
+            3 -> array3[i] = PlayerTurn
         }
-    }
-
-    override fun toString(): String {
-        
-        return super.toString()
     }
 
     private fun whichRow(v:Int): Int{
@@ -33,12 +28,19 @@ class Matriz{
                 row = 2
                 return (v - 4)
             }
-            in 4..6 -> {
+            in 7..9 -> {
                 row = 3
                 return (v - 7)
             }
             else -> 0
         }
+    }
+
+    override fun toString(): String {
+        var fullArray = ""
+        fullArray = "|${array1[0]} |${array1[1]} |${array1[2]}||${array2[0]} |${array2[1]} |${array2[2]}||"+
+                "${array3[0]} |${array3[1]} |${array3[2]}"
+        return fullArray
     }
 
     fun checkWinCondition(): Boolean{

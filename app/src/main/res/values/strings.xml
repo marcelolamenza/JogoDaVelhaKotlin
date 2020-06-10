@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">Jogo da Velha</string>
-    <string name="winner">"WINNER"</string>
-    <string name="turn">"ESCREVE AQUI PF"</string>
+    <string name="winner"> </string>
 </resources>

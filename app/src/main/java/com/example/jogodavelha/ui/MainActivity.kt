@@ -20,97 +20,22 @@ class MainActivity : AppCompatActivity() {
 
 
     val viewModel: MainActivityViewModel = MainActivityViewModel()
-    var phase = "Player ${viewModel.player}"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,
             R.layout.activity_main
         )
+        binding.viewModel = viewModel
 
-        bindingObj()
-        setObservers()
+        setupObservers()
+
     }
 
-    fun setObservers(){
-        viewModel.gameWon.observe(this, Observer {
-            if(it){
-                phase = "PLAYER ${viewModel.player} HAS WON THE GAME"
-                binding.btnLeftTop.isClickable = false
-
-                binding.btnCenterTop.isClickable = false
-
-                binding.btnRightTop.isClickable = false
-
-                binding.btnLeftCenter.isClickable = false
-
-                binding.btnCenterCenter.isClickable = false
-
-                binding.btnRightCenter.isClickable = false
-
-                binding.btnRightBottom.isClickable = false
-
-                binding.btnCenterBottom.isClickable = false
-
-                binding.btnLeftBottom.isClickable = false
-
-
-            }
-        })
-
+    private fun setupObservers() {
         viewModel.buttonCoordinate.observe(this, Observer {
-            Log.i(TAG, "\nTurn:${viewModel.player}\n"+viewModel.matrizViewModel.toString())
-            when(viewModel.buttonCoordinate.value){
-                1 -> {
-                    binding.btnLeftTop.text = viewModel.player
-                    binding.btnLeftTop.isClickable = false
-                }
-                2 -> {
-                    binding.btnCenterTop.text = viewModel.player
-                    binding.btnCenterTop.isClickable = false
-                }
-                3 -> {
-                    binding.btnRightTop.text = viewModel.player
-                    binding.btnRightTop.isClickable = false
-                }
-                4 -> {
-                    binding.btnLeftCenter.text = viewModel.player
-                    binding.btnLeftCenter.isClickable = false
-                }
-                5 -> {
-                    binding.btnCenterCenter.text = viewModel.player
-                    binding.btnCenterCenter.isClickable = false
-                }
-                6 -> {
-                    binding.btnRightCenter.text = viewModel.player
-                    binding.btnRightCenter.isClickable = false
-                }
-                7 -> {
-                    binding.btnRightBottom.text = viewModel.player
-                    binding.btnRightBottom.isClickable = false
-                }
-                8 -> {
-                    binding.btnCenterBottom.text = viewModel.player
-                    binding.btnCenterBottom.isClickable = false
-                }
-                9 -> {
-                    binding.btnLeftBottom.text = viewModel.player
-                    binding.btnLeftBottom.isClickable = false
-                }
-            }
+            binding.winnerMessage = it.first
+            binding.isEnable = it.second
         })
-
-    }
-
-    fun onClickButton(coordenate : Int){
-        viewModel.onButtonClick(coordenate)
-        if(!viewModel.gameWon.value!!){
-            phase = "Player ${viewModel.player}"
-        }
-        bindingObj()
-    }
-
-    fun bindingObj(){
-        binding.main = this
     }
 
     companion object {
